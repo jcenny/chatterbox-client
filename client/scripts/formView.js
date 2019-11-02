@@ -9,7 +9,14 @@ var FormView = {
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-
+    var msg = $('form').find('#message')[0].value;
+    var msgObj = {
+      username: App.username,
+      text: msg
+    };
+    Parse.create(msgObj, Parse.readAll((data) => {
+      MessagesView.render([data.results[0]]);
+    }));
     // render at some point
     console.log('click!');
   },
